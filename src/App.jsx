@@ -13,7 +13,7 @@ import { LangProvider, useLang } from "./i18n";
 import "./app.css";
 
 function AppInner() {
-  const { dir } = useLang();
+  const { dir, lang } = useLang();
   const [authReady, setAuthReady] = useState(false);
   const [speaker, setSpeaker] = useState(() => {
     const saved = localStorage.getItem("dmtarl_speaker");
@@ -28,7 +28,15 @@ function AppInner() {
 
   useEffect(() => {
     document.documentElement.dir = dir;
-  }, [dir]);
+    // index.html hardcodes lang="en" as a static fallback, but the real
+    // content is French UI / Arabic script / Darija-in-Latin-script —
+    // keeping this in sync with the actual UI language reduces (though
+    // the <meta name="google" content="notranslate"> in index.html is
+    // the real fix) the lang-mismatch signal that triggers browsers'
+    // auto-translate prompts, which can silently corrupt a displayed
+    // prompt mid-word (see the "avait" report this was added for).
+    document.documentElement.lang = lang;
+  }, [dir, lang]);
 
   useEffect(() => {
     // We still need an active Firebase auth session for security rules,

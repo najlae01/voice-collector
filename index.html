@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The page mixes French UI text, Arabic script, and Darija written
+         in Latin transliteration (Arabizi) — content Chrome's translate
+         heuristics can't classify, which is exactly what triggers
+         auto-translate prompts. Left uncontrolled, the translator mostly
+         passes unrecognized Arabizi words through untouched but WILL
+         translate any token that happens to also spell a real word in a
+         language it knows (e.g. Darija "had" = English "had"), silently
+         corrupting the ground-truth prompt a contributor reads aloud —
+         see the "why does it show avait instead of had" report this was
+         added for. notranslate opts the whole page out. -->
+    <meta name="google" content="notranslate" />
     <title>voice-collector</title>
   </head>
   <body>

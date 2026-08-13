@@ -218,9 +218,19 @@ export default function RecordScreen({
       <main className="card record-card">
         <p className="category-tag">{utterance.category.replace("_", " ")}</p>
 
-        <h1 className="prompt">{utterance.text}</h1>
+        {/* translate="no" + notranslate class: belt-and-suspenders
+            against browser auto-translate corrupting the ground-truth
+            prompt mid-word (e.g. Darija "had" -> French "avait") —
+            index.html's <meta name="google" content="notranslate">
+            is the primary fix, this covers browsers that only honor
+            the per-element signal. */}
+        <h1 className="prompt notranslate" translate="no">
+          {utterance.text}
+        </h1>
         {utterance.textArabic && (
-          <p className="prompt-arabic">{utterance.textArabic}</p>
+          <p className="prompt-arabic notranslate" translate="no">
+            {utterance.textArabic}
+          </p>
         )}
         <p className="subtle">{t.sayThis}</p>
 
