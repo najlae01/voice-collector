@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "speakers": {
+      ".read": "auth != null",
+      "$speakerId": {
+        ".write": "auth != null"
+      }
+    },
+    "recordings": {
+      ".read": "auth != null",
+      "$speakerId": {
+        ".write": "auth != null"
+      }
+    }
+  }
+}

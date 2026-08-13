@@ -1,0 +1,15 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Any signed-in (anonymous) user can read/write recordings.
+    // NOTE: because speaker identity is name+PIN derived rather than tied
+    // to Firebase's own auth.uid (see src/firebase.js for why), this rule
+    // can only gate "must be signed in", not "must be this specific
+    // speaker". That's an acceptable trade-off for a small trusted group
+    // of family/friend contributors, not a public-facing tool — don't
+    // reuse this rule as-is for a tool open to strangers.
+    match /recordings/{speakerId}/{fileName} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
