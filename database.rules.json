@@ -1,15 +1,21 @@
 {
   "rules": {
     "speakers": {
-      ".read": "auth != null",
       "$speakerId": {
-        ".write": "auth != null"
+        ".read": "auth != null",
+        ".write": "auth != null && !data.exists()",
+        ".validate": "newData.hasChildren(['name']) && newData.child('name').isString() && newData.child('name').val().length <= 100"
       }
     },
     "recordings": {
-      ".read": "auth != null",
       "$speakerId": {
-        ".write": "auth != null"
+        ".read": "auth != null",
+        "$utteranceId": {
+          "$seq": {
+            ".write": "auth != null && !data.exists()",
+            ".validate": "newData.hasChildren(['fileName', 'utteranceId', 'spokenText', 'speakerId', 'audioPath']) && newData.child('speakerId').val() === $speakerId && newData.child('utteranceId').val() === $utteranceId && newData.child('spokenText').isString() && newData.child('spokenText').val().length <= 1000"
+          }
+        }
       }
     }
   }

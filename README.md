@@ -320,7 +320,7 @@ truth, not about changing what's *asked*), but try to read these as
 written rather than paraphrasing.
 
 **Your existing recordings already cover this** — checked against the
-Firebase export, speaker `najlae_1234` has already recorded all 20
+Firebase export, speaker `F1_1234` has already recorded all 20
 `BENCHMARK_IDS` (tagged `datasetSplit: "test"` from before this mode
 existed, not `"benchmark"` — that's fine, don't re-record them). For
 export/analysis, pair speakers by `utteranceId ∈ BENCHMARK_IDS`
